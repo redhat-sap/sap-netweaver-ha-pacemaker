@@ -1,0 +1,31 @@
+---
+
+- name: Adapt ASCS profile to prevent sapsrv from restarting it
+  replace:
+    path: '{{ sap_netweaver_ha_pacemaker_ascs_profile_device }}'/'{{ sap_netweaver_ha_pacemaker_ascs_profile_path }}
+    regexp: 'Restart'
+    replace: 'Start'
+
+- name: Adapt ERS profile to prevent sapsrv from restarting it
+  replace:
+    path: '{{ sap_netweaver_ha_pacemaker_ers_profile_device }}'/'{{ sap_netweaver_ha_pacemaker_ers_profile_path }}
+    regexp: 'Restart'
+    replace: 'Start'
+
+- name: Remove 'Autostart' from ERS profile
+  replace:
+    path: /usr/sap/sapservices
+    regexp: '(Autostart*)'
+    replace: '#\1'
+
+- name: Configure Keep Alive
+  sysctl:
+    name: net.ipv4.tcp_keepalive_time
+    value: 300
+
+
+- name: Update /usr/sap/services
+  replace:
+    path: /usr/sap/sapservices
+    regexp: '(LD_LIBRARY*)'
+    replace: '#\1'

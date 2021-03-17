@@ -1,0 +1,57 @@
+---
+
+- name: Ensure the ports that are required by the Red Hat High Availability Add-On are open
+  firewalld:
+    service: high-availability
+    permanent: yes
+    state: enabled
+  when: sap_netweaver_ha_pacemaker_configure_firewall
+
+- name: Ensure password for hacluster is configured
+  user:
+    name: hacluster
+    password: "{{ sap_netweaver_ha_pacemaker_hacluster_password | password_hash('sha512') }}"
+
+- name: Ensure pcsd service is enabled
+  systemd:
+    name: pcsd.service
+    state: started
+    enabled: yes
+
+- name: Ensure both Nodes are added to /etc/hosts for heartbeat traffic
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ item }}"
+  loop:
+    - "{{ sap_netweaver_ha_pacemaker_node1_ip }}  {{ sap_netweaver_ha_pacemaker_node1_fqdn }}"
+    - "{{ sap_netweaver_ha_pacemaker_node2_ip }}  {{ sap_netweaver_ha_pacemaker_node2_fqdn }}"
+
+- name: Authenticate the cluster Nodes
+  command: |
+    pcs host auth \
+    {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
+    -u hacluster -p {{ sap_netweaver_ha_pacemaker_hacluster_password }}
+  register: auth_cluster
+  changed_when: "'Authorized' in auth_cluster.stdout"
+
+- name: Create RHEL HA Cluster
+  command: |
+    pcs cluster setup \
+    {{ sap_netweaver_ha_pacemaker_hacluster_cluster_name }} \
+    {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} \
+    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
+  register: create_cluster
+  changed_when: "'Cluster has been successfully set up' in create_cluster.stdout"
+  run_once: true
+
+- name: Enable the RHEL HA Cluster
+  command: pcs cluster enable --all
+  register: enable_cluster
+  changed_when: "'Cluster Enabled' in enable_cluster.stdout"
+  run_once: true
+
+- name: Start the RHEL HA Cluster
+  command: pcs cluster start --all
+  register: start_cluster
+  changed_when: "'Starting Cluster' in start_cluster.stdout"
+  run_once: true
