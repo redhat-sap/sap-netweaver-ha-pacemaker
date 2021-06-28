@@ -9,8 +9,8 @@
 
 - name: Create password script
   copy:
-    dest: "{{ sap_netweaver_ha_pacemaker_passwd_file }}"
-    content: 'echo "xMSdo8etCM"'
+    dest: "{{ sap_netweaver_ha_pacemaker_fencing_device.password_file }}"
+    content: 'echo "{{ sap_netweaver_ha_pacemaker_fencing_device.pwd }}"'
     mode: 0700
 
 - name: Enable stonith
