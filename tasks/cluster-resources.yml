@@ -42,15 +42,15 @@
   run_once: true
   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
 
-- name: Create filesystem resource for SYS directory
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_sys }} Filesystem device='{{ sap_netweaver_ha_pacemaker_sys_device }}' \
-    directory={{ sap_netweaver_ha_pacemaker_sys_path }} \
-    fstype=nfs clone interleave=true
-  register: create_fs_sys
-  changed_when: "'Assumed agent name' in create_fs_sys.stdout"
-  run_once: true
-  when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
+# - name: Create filesystem resource for SYS directory
+#   shell: |
+#     pcs resource create {{ sap_netweaver_ha_pacemaker_fs_sys }} Filesystem device='{{ sap_netweaver_ha_pacemaker_sys_device }}' \
+#     directory={{ sap_netweaver_ha_pacemaker_sys_path }} \
+#     fstype=nfs clone interleave=true
+#   register: create_fs_sys
+#   changed_when: "'Assumed agent name' in create_fs_sys.stdout"
+#   run_once: true
+#   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
 
 - name: Create Virtual IP resource for ASCS
   shell: |
@@ -70,15 +70,15 @@
   run_once: true
   when: sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb
 
-- name: Create filesystem resource for ASCS instance profile
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_ascs }} Filesystem device='{{ sap_netweaver_ha_pacemaker_ascs_profile_device }}' \
-    directory={{ sap_netweaver_ha_pacemaker_ascs_profile_path }} \
-    fstype=nfs force_unmount=safe --group {{ _ascs_group }}
-  register: create_fs_ascs
-  changed_when: "'Assumed agent name' in create_fs_ascs.stdout"
-  run_once: true
-  when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
+# - name: Create filesystem resource for ASCS instance profile
+#   shell: |
+#     pcs resource create {{ sap_netweaver_ha_pacemaker_fs_ascs }} Filesystem device='{{ sap_netweaver_ha_pacemaker_ascs_profile_device }}' \
+#     directory={{ sap_netweaver_ha_pacemaker_ascs_profile_path }} \
+#     fstype=nfs force_unmount=safe --group {{ _ascs_group }}
+#   register: create_fs_ascs
+#   changed_when: "'Assumed agent name' in create_fs_ascs.stdout"
+#   run_once: true
+#   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
 
 - name: Create SAP ASCS instance resource
   shell: |
@@ -108,15 +108,15 @@
   run_once: true
   when: sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb
 
-- name: Create filesystem resource for ERS instance profile
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_ers }} Filesystem device='{{ sap_netweaver_ha_pacemaker_ers_profile_device }}' \
-    directory={{ sap_netweaver_ha_pacemaker_ers_profile_path }} \
-    fstype=nfs force_unmount=safe --group {{ _ers_group }}
-  register: create_fs_ers
-  changed_when: "'Assumed agent name' in create_fs_ers.stdout"
-  run_once: true
-  when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
+# - name: Create filesystem resource for ERS instance profile
+#   shell: |
+#     pcs resource create {{ sap_netweaver_ha_pacemaker_fs_ers }} Filesystem device='{{ sap_netweaver_ha_pacemaker_ers_profile_device }}' \
+#     directory={{ sap_netweaver_ha_pacemaker_ers_profile_path }} \
+#     fstype=nfs force_unmount=safe --group {{ _ers_group }}
+#   register: create_fs_ers
+#   changed_when: "'Assumed agent name' in create_fs_ers.stdout"
+#   run_once: true
+#   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
 
 - name: Create SAP ERS instance resource
   shell: |

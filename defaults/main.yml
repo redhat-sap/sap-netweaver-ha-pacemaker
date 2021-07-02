@@ -28,3 +28,5 @@ sap_netweaver_ha_pacemaker_ers_profile_file: "{{ sap_netweaver_ha_pacemaker_ers_
 
 sap_netweaver_ha_pacemaker_fs_sapmnt: fs_sapmnt
 sap_netweaver_ha_pacemaker_fs_trans: fs_sap_trans
+sap_netweaver_ha_pacemaker_fs_ascs: fs_ascs
+sap_netweaver_ha_pacemaker_fs_sys: fs_sys
