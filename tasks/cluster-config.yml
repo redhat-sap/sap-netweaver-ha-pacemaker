@@ -23,8 +23,8 @@
     path: /etc/hosts
     line: "{{ item }}"
   loop:
-    - "{{ sap_netweaver_ha_pacemaker_hacluster_node1_ip }}  {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }}"
-    - "{{ sap_netweaver_ha_pacemaker_hacluster_node2_ip }}  {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }}"
+    - "{{ sap_netweaver_ha_pacemaker_hacluster_node1_ip }}  {{ sap_netweaver_ha_pacemaker_node1_fqdn }}"
+    - "{{ sap_netweaver_ha_pacemaker_hacluster_node1_ip }}  {{ sap_netweaver_ha_pacemaker_node2_fqdn }}"
 
 - name: Authenticate the cluster Nodes
   command: |
