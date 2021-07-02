@@ -16,12 +16,12 @@ HA configuration of pacemaker for SAP Netweaver software
 |    sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb    |      Default: no. Deal with Azure load balancer?       |           no            |
 |               sap_netweaver_ha_pacemaker_sid               |                  SID of this instance                  |           yes           |
 |          sap_netweaver_ha_pacemaker_profile_path           |        Full path of directory holding profiles         | no, is generated sanely |
-|       sap_netweaver_ha_pacemaker_ascs_instance_name        |                   ASCS instance name                   |           yes           |
+|       sap_netweaver_ha_pacemaker_instance_name_ascs        |                   ASCS instance name                   |           yes           |
 |      sap_netweaver_ha_pacemaker_ascs_instance_number       |                  ASCS instance number                  |           yes           |
 |        sap_netweaver_ha_pacemaker_ascs_profile_file        |           Full path and name of ASCS profile           | no, is generated sanely |
 |        sap_netweaver_ha_pacemaker_ascs_profile_path        |      Full path of directory holding ASCS profile       |                         |
 |            sap_netweaver_ha_pacemaker_ascs_vip             |     Virtual (cluster managed) IP address for ASCS      |           yes           |
-|        sap_netweaver_ha_pacemaker_ers_instance_name        |                   ERS Instance name                    |           yes           |
+|        sap_netweaver_ha_pacemaker_instance_name_ers        |                   ERS Instance name                    |           yes           |
 |       sap_netweaver_ha_pacemaker_ers_instance_number       |                  ERS instance number                   |           yes           |
 |        sap_netweaver_ha_pacemaker_ers_profile_file         |        Full path and file name of ASCS profile         | no, is generated sanely |
 |        sap_netweaver_ha_pacemaker_ers_profile_path         |      Full path of directory holding ASCS profile       |                         |
