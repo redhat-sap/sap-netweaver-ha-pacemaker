@@ -25,3 +25,6 @@ sap_netweaver_ha_pacemaker_ascs_profile_file: "{{ sap_netweaver_ha_pacemaker_asc
 sap_netweaver_ha_pacemaker_instance_name_ers:
 sap_netweaver_ha_pacemaker_ers_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
 sap_netweaver_ha_pacemaker_ers_profile_file: "{{ sap_netweaver_ha_pacemaker_ers_profile_path }}/{{ sap_netweaver_ha_pacemaker_instance_name_ers }}"
+
+sap_netweaver_ha_pacemaker_fs_sapmnt: fs_sapmnt
+sap_netweaver_ha_pacemaker_fs_trans: fs_sap_trans
