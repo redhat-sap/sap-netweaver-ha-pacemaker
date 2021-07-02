@@ -29,11 +29,11 @@ HA configuration of pacemaker for SAP Netweaver software
 |        sap_netweaver_ha_pacemaker_e4s_repos_ppc64le        |                                                        |           no            |
 |        sap_netweaver_ha_pacemaker_e4s_repos_x86_64         |                                                        |           no            |
 |         sap_netweaver_ha_pacemaker_instance_number         |                  ????? azure lb uses                   |           ???           |
-|             sap_netweaver_ha_pacemaker_fs_ascs             |                          ???                           |           ???           |
-|             sap_netweaver_ha_pacemaker_fs_ers              |                          ???                           |           ???           |
-|            sap_netweaver_ha_pacemaker_fs_sapmnt            |           Name of PCS resource of sapmnt  fs           |           no            |
-|             sap_netweaver_ha_pacemaker_fs_sys              |                          ???                           |           ???           |
-|            sap_netweaver_ha_pacemaker_fs_trans             |            Name of PCS resource of trans fs            |           no            |
+|             sap_netweaver_ha_pacemaker_fs_ascs             |    Name of PCS resource of ascs profile filesystem     |           ???           |
+|             sap_netweaver_ha_pacemaker_fs_ers              |     Name of PCS resource of ers profile filesystem     |           ???           |
+|            sap_netweaver_ha_pacemaker_fs_sapmnt            |       Name of PCS resource of sapmnt filesystem        |           no            |
+|             sap_netweaver_ha_pacemaker_fs_sys              |         Name of PCS resource of sys filesystem         |           ???           |
+|            sap_netweaver_ha_pacemaker_fs_trans             |        Name of PCS resource of trans filesystem        |           no            |
 
 
 ### STONITH fencing
