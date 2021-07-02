@@ -26,7 +26,7 @@
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_fs_sapmnt }} Filesystem device='{{ sap_netweaver_ha_pacemaker_sapmnt_device }}' \
     directory={{ sap_netweaver_ha_pacemaker_sapmnt_path }} \
-    fstype=nfs --clone interleave=true
+    fstype=nfs clone interleave=true
   register: create_fs_sapmnt
   changed_when: "'Assumed agent name' in create_fs_sapmnt.stdout"
   run_once: true
@@ -36,7 +36,7 @@
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_fs_trans }} Filesystem device='{{ sap_netweaver_ha_pacemaker_trans_device }}' \
     directory={{ sap_netweaver_ha_pacemaker_trans_path }} \
-    fstype=nfs --clone interleave=true
+    fstype=nfs clone interleave=true
   register: create_fs_trans
   changed_when: "'Assumed agent name' in create_fs_trans.stdout"
   run_once: true
@@ -46,7 +46,7 @@
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_fs_sys }} Filesystem device='{{ sap_netweaver_ha_pacemaker_sys_device }}' \
     directory={{ sap_netweaver_ha_pacemaker_sys_path }} \
-    fstype=nfs --clone interleave=true
+    fstype=nfs clone interleave=true
   register: create_fs_sys
   changed_when: "'Assumed agent name' in create_fs_sys.stdout"
   run_once: true
