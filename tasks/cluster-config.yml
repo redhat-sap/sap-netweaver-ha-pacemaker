@@ -28,21 +28,24 @@
 
 - name: Authenticate the cluster Nodes
   command: |
-    pcs {{ _subject }} auth \
-    {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
-    -u hacluster -p {{ sap_netweaver_ha_pacemaker_hacluster_password }}
+    pcs {{ _subject }} auth {{ _auth }} \
+    {{ sap_hana_ha_pacemaker_node1_fqdn }} {{ sap_hana_ha_pacemaker_node2_fqdn }} \
+    -u hacluster -p {{ sap_hana_ha_pacemaker_hacluster_password }}
   register: auth_cluster
   changed_when: "'Authorized' in auth_cluster.stdout"
   vars:
-    _subject: "{{ 'cluster' if ansible_distribution_major_version|int == 7 else 'host' }}"
+    _subject: "{{ 'cluster' if ansible_facts['distribution_major_version'] | int == 7 else 'host' }}"
+    _auth: "{{ '--auth' if ansible_facts['distribution_major_version'] | int == 7 else '' }}"
 
 - name: Create RHEL HA Cluster
   command: |
-    pcs cluster setup --name {{ sap_netweaver_ha_pacemaker_hacluster_cluster_name }}
-    {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} \
-    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
+    pcs cluster setup {{ _name }} {{ sap_hana_ha_pacemaker_cluster_name }} \
+    {{ sap_hana_ha_pacemaker_node1_fqdn }} \
+    {{ sap_hana_ha_pacemaker_node2_fqdn }} \
   register: create_cluster
   changed_when: "'Cluster has been successfully set up' in create_cluster.stdout"
+  vars:
+    _name: "{{ '--name' if ansible_facts['distribution_major_version'] | int == 7 else '' }}"
   run_once: true
 
 - name: Enable the RHEL HA Cluster
