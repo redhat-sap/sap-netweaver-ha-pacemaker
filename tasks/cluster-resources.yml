@@ -83,7 +83,7 @@
 - name: Create SAP ASCS instance resource
   shell: |
      pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ascs{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
-     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_ascs_instance_name }} START_PROFILE={{ sap_netweaver_ha_pacemaker_ascs_profile_file }} \
+     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ascs }} START_PROFILE={{ sap_netweaver_ha_pacemaker_ascs_profile_file }} \
      AUTOMATIC_RECOVER=false meta resource-stickiness=5000 \
      --group {{ _ascs_group }}
   register: create_ascs_instance
@@ -121,7 +121,7 @@
 - name: Create SAP ERS instance resource
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
-    SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_ers_instance_name }} START_PROFILE={{ sap_netweaver_ha_pacemaker_ers_profile_file }} \
+    SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ers }} START_PROFILE={{ sap_netweaver_ha_pacemaker_ers_profile_file }} \
     AUTOMATIC_RECOVER=false meta IS_ERS=true \
     --group {{ _ers_group }}
   register: create_instance_ers
