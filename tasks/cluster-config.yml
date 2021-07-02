@@ -41,7 +41,7 @@
   command: |
     pcs cluster setup {{ _name }} {{ sap_netweaver_ha_pacemaker_hacluster_cluster_name }} \
     {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} \
-    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
+    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }}
   register: create_cluster
   changed_when: "'Cluster has been successfully set up' in create_cluster.stdout"
   vars:
