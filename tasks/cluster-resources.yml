@@ -23,10 +23,7 @@
   when: sap_netweaver_ha_pacemaker_threshold
 
 - name: "Create filesystem resource for {{ item }}"
-  shell: |
-    pcs resource create {{ vars['sap_netweaver_ha_pacemaker_fsr_name_' ~ item] }} Filesystem device='{{ vars['sap_netweaver_ha_pacemaker_fsdevice_' ~ item] }}' \
-    directory={{ vars['sap_netweaver_ha_pacemaker_mntdir_' ~ item] }} \
-    fstype=nfs clone interleave=true
+  shell: pcs resource create '{{ _name }}' Filesystem device='{{ _dev }}' directory='{{ _dir }}' fstype='{{ _type }}' clone interleave=true
   register: create_fs_mnt
   changed_when: "'Assumed agent name' in create_fs_mnt.stdout"
   run_once: true
@@ -35,6 +32,10 @@
     - vars['sap_netweaver_ha_pacemaker_fsskip_' ~ item] is not defined
   vars:
     _group: "{{ _ascs_group if (item == 'ascs') else _ers_group if (item == 'ers') else  '' }}"
+    _name: vars['sap_netweaver_ha_pacemaker_fsr_name_' ~ item]
+    _dev:  vars['sap_netweaver_ha_pacemaker_fsdevice_' ~ item]
+    _dir:  vars['sap_netweaver_ha_pacemaker_mntdir_' ~ item]
+    _type: vars['sap_netweaver_ha_pacemaker_fstype_' ~ item]
   loop:
     - sapmnt
     - sys
