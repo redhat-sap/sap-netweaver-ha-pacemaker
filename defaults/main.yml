@@ -12,7 +12,7 @@ sap_netweaver_ha_pacemaker_standard_repos_ppc64le: rhel-8-for-ppc64le-highavaila
 
 sap_netweaver_ha_pacemaker_hacluster_cluster_name: "ascs_cluster"
 
-#Strongly discouraged to disable
+sap_netweaver_ha_pacemaker_ensa_ver: 2
 
 sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage: true
 sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
@@ -26,7 +26,15 @@ sap_netweaver_ha_pacemaker_instance_name_ers:
 sap_netweaver_ha_pacemaker_ers_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
 sap_netweaver_ha_pacemaker_ers_profile_file: "{{ sap_netweaver_ha_pacemaker_ers_profile_path }}/{{ sap_netweaver_ha_pacemaker_instance_name_ers }}"
 
-sap_netweaver_ha_pacemaker_fs_sapmnt: fs_sapmnt
-sap_netweaver_ha_pacemaker_fs_trans: fs_sap_trans
-sap_netweaver_ha_pacemaker_fs_ascs: fs_ascs
-sap_netweaver_ha_pacemaker_fs_sys: fs_sys
+sap_netweaver_ha_pacemaker_fsr_name_ascs: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_ascs"
+sap_netweaver_ha_pacemaker_fsr_name_ers: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_ers"
+sap_netweaver_ha_pacemaker_fsr_name_sapmnt: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_sapmnt"
+sap_netweaver_ha_pacemaker_fsr_name_trans: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_trans"
+sap_netweaver_ha_pacemaker_fsr_name_sys: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_sys"
+
+sap_netweaver_ha_pacemaker_fstype: nfs
+sap_netweaver_ha_pacemaker_fstype_ascs: "{{ sap_netweaver_ha_pacemaker_fstype }}"
+sap_netweaver_ha_pacemaker_fstype_ers: "{{ sap_netweaver_ha_pacemaker_fstype }}"
+sap_netweaver_ha_pacemaker_fstype_sapmnt: "{{ sap_netweaver_ha_pacemaker_fstype }}"
+sap_netweaver_ha_pacemaker_fstype_trans: "{{ sap_netweaver_ha_pacemaker_fstype }}"
+sap_netweaver_ha_pacemaker_fstype_sys: "{{ sap_netweaver_ha_pacemaker_fstype }}"
