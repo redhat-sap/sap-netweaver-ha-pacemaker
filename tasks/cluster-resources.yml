@@ -32,7 +32,7 @@
   run_once: true
   when: 
     - sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage 
-    - not defined vars['sap_netweaver_ha_pacemaker_fsskip_' ~ item]
+    - vars['sap_netweaver_ha_pacemaker_fsskip_' ~ item] is not defined
   vars:
     _group: "{{ _ascs_group if (item == 'ascs') else _ers_group if (item == 'ers') else  '' }}"
   loop:
