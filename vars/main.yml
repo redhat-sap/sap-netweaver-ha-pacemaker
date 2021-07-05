@@ -1,30 +1,7 @@
-sap_netweaver_ha_pacemaker_secondary_read: false
-sap_netweaver_ha_pacemaker_configure_firewall: false
-sap_netweaver_ha_pacemaker_stickiness: false
-sap_netweaver_ha_pacemaker_threshold: false
 
-sap_netweaver_ha_pacemaker_use_e4s: true
-
-sap_netweaver_ha_pacemaker_e4s_repos_x86_64: rhel-8-for-x86_64-highavailability-e4s-rpms
-sap_netweaver_ha_pacemaker_standard_repos_x86_64: rhel-8-for-x86_64-highavailability-rpms
-sap_netweaver_ha_pacemaker_e4s_repos_ppc64le: rhel-8-for-ppc64le-highavailability-e4s-rpm
-sap_netweaver_ha_pacemaker_standard_repos_ppc64le: rhel-8-for-ppc64le-highavailability-rpms
-
-sap_netweaver_ha_pacemaker_hacluster_cluster_name: "ascs_cluster"
-
-sap_netweaver_ha_pacemaker_ensa_ver: 2
-
-sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage: true
-sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
-
-sap_netweaver_ha_pacemaker_sid: 
-sap_netweaver_ha_pacemaker_ascs_instance_name:
-sap_netweaver_ha_pacemaker_ascs_instance_number:
 sap_netweaver_ha_pacemaker_profile_path: "/sapmnt/{{ sap_netweaver_ha_pacemaker_sid }}/profile"
 sap_netweaver_ha_pacemaker_ascs_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
 sap_netweaver_ha_pacemaker_ascs_profile_file: "{{ sap_netweaver_ha_pacemaker_ascs_profile_path }}/{{ sap_netweaver_ha_pacemaker_ascs_instance_name }}"
-sap_netweaver_ha_pacemaker_ers_instance_name:
-sap_netweaver_ha_pacemaker_ers_instance_number:
 sap_netweaver_ha_pacemaker_ers_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
 sap_netweaver_ha_pacemaker_ers_profile_file: "{{ sap_netweaver_ha_pacemaker_ers_profile_path }}/{{ sap_netweaver_ha_pacemaker_ers_instance_name }}"
 
