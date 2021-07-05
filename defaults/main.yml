@@ -18,15 +18,15 @@ sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage: true
 sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
 
 # sap_netweaver_ha_pacemaker_sid: 
-# sap_netweaver_ha_pacemaker_ascs_instance_name:
-# sap_netweaver_ha_pacemaker_ascs_instance_number:
+# sap_netweaver_ha_pacemaker_instance_name_ascs:
+# sap_netweaver_ha_pacemaker_instance_number_ascs:
 # sap_netweaver_ha_pacemaker_profile_path: "/sapmnt/{{ sap_netweaver_ha_pacemaker_sid }}/profile"
-# sap_netweaver_ha_pacemaker_ascs_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
-# sap_netweaver_ha_pacemaker_ascs_profile_file: "{{ sap_netweaver_ha_pacemaker_ascs_profile_path }}/{{ sap_netweaver_ha_pacemaker_ascs_instance_name }}"
-# sap_netweaver_ha_pacemaker_ers_instance_name:
-# sap_netweaver_ha_pacemaker_ers_instance_number:
-# sap_netweaver_ha_pacemaker_ers_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
-# sap_netweaver_ha_pacemaker_ers_profile_file: "{{ sap_netweaver_ha_pacemaker_ers_profile_path }}/{{ sap_netweaver_ha_pacemaker_ers_instance_name }}"
+# sap_netweaver_ha_pacemaker_profile_path_ascs: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
+# sap_netweaver_ha_pacemaker_profile_file_ascs: "{{ sap_netweaver_ha_pacemaker_profile_path_ascs }}/{{ sap_netweaver_ha_pacemaker_instance_name_ascs }}"
+# sap_netweaver_ha_pacemaker_instance_name_ers:
+# sap_netweaver_ha_pacemaker_instance_number_ers:
+# sap_netweaver_ha_pacemaker_profile_path_ers: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
+# sap_netweaver_ha_pacemaker_profile_file_ers: "{{ sap_netweaver_ha_pacemaker_profile_path_ers }}/{{ sap_netweaver_ha_pacemaker_instance_name_ers }}"
 
 # sap_netweaver_ha_pacemaker_fsr_name_ascs: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_ascs"
 # sap_netweaver_ha_pacemaker_fsr_name_ers: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_ers"
@@ -41,8 +41,8 @@ sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
 # sap_netweaver_ha_pacemaker_fstype_trans: "{{ sap_netweaver_ha_pacemaker_fstype }}"
 # sap_netweaver_ha_pacemaker_fstype_sys: "{{ sap_netweaver_ha_pacemaker_fstype }}"
 
-# sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_ascs_instance_name + sap_netweaver_ha_pacemaker_ascs_instance_number }}"
-# sap_netweaver_ha_pacemaker_mntdir_ers: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_ers_instance_name + sap_netweaver_ha_pacemaker_ers_instance_number }}"
+# sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_instance_name_ascs + sap_netweaver_ha_pacemaker_instance_number_ascs }}"
+# sap_netweaver_ha_pacemaker_mntdir_ers: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_instance_name_ers + sap_netweaver_ha_pacemaker_instance_number_ers }}"
 # sap_netweaver_ha_pacemaker_mntdir_sapmnt: '/sapmnt'
 # sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_sid }}/SYS'
 # sap_netweaver_ha_pacemaker_mntdir_trans: '/usr/sap/trans'

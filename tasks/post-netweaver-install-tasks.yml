@@ -2,13 +2,13 @@
 
 - name: Adapt ASCS profile to prevent sapsrv from restarting it
   replace:
-    path: '{{ sap_netweaver_ha_pacemaker_ascs_profile_file }}'
+    path: '{{ sap_netweaver_ha_pacemaker_profile_file_ascs }}'
     regexp: 'Restart'
     replace: 'Start'
 
 - name: Adapt ERS profile to prevent sapsrv from restarting it
   replace:
-    path: '{{ sap_netweaver_ha_pacemaker_ers_profile_file }}'
+    path: '{{ sap_netweaver_ha_pacemaker_profile_file_ers }}'
     regexp: 'Restart'
     replace: 'Start'
 

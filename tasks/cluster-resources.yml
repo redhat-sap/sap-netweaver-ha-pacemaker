@@ -53,7 +53,7 @@
 # JeffW: This will fail. sap_netweaver_ha_pacemaker_instance_number is undefined. IDK if it should be ASCS or ERS.
 # - name: Create load balancer for  
 #   shell:
-#     pcs resource create nc_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_ascs_instance_number }}_ascs  \
+#     pcs resource create nc_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}_ascs  \
 #     azure-lb port=625"{{ sap_netweaver_ha_pacemaker_instance_number }}"
 #   register: create_lb
 #   changed_when: "'Assumed agent name' in create_lb.stdout"
@@ -73,7 +73,7 @@
 - name: Create SAP ASCS instance resource
   shell: |
      pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ascs{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
-     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_ascs_instance_name }} START_PROFILE={{ sap_netweaver_ha_pacemaker_ascs_profile_file }} \
+     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ascs }} START_PROFILE={{ sap_netweaver_ha_pacemaker_profile_file_ascs }} \
      AUTOMATIC_RECOVER=false meta resource-stickiness=5000 \
      --group {{ _ascs_group }}
   register: create_ascs_instance
@@ -111,7 +111,7 @@
 - name: Create SAP ERS instance resource
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
-    SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_ers_instance_name }} START_PROFILE={{ sap_netweaver_ha_pacemaker_ers_profile_file }} \
+    SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ers }} START_PROFILE={{ sap_netweaver_ha_pacemaker_profile_file_ers }} \
     AUTOMATIC_RECOVER=false meta IS_ERS=true \
     --group {{ _ers_group }}
   register: create_instance_ers
