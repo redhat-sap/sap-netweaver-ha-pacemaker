@@ -142,7 +142,6 @@
   changed_when: "'Adding SAPHanaTopology' in create_constraint1.stdout"
   run_once: true  
 
-
 - name: Ensure Cluster is NOT in maintenance mode
   command: pcs property set maintenance-mode=false
   register: maintenance_cluster
