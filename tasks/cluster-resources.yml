@@ -43,7 +43,7 @@
 - name: Create Virtual IP resource for ASCS
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_ascs{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
-    IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_ascs_vip }}" \
+    IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ascs }}" \
     --group {{ _ascs_group }}
   register: create_ip_ascs
   changed_when: "'Assumed agent name' in create_ip_ascs.stdout"
@@ -83,7 +83,7 @@
 - name: Create Virtual IP resource for ERS
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
-    IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_ers_vip }}" \
+    IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ers }}" \
      --group {{ _ers_group }}
   register: create_ip_ers
   changed_when: "'Assumed agent name' in create_ip_ers.stdout"

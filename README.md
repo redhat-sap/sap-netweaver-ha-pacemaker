@@ -20,12 +20,12 @@ HA configuration of pacemaker for SAP Netweaver software
 |      sap_netweaver_ha_pacemaker_instance_number_ascs       |                          ASCS instance number                          |           yes           |
 |        sap_netweaver_ha_pacemaker_profile_file_ascs        |                   Full path and name of ASCS profile                   | no, is generated sanely |
 |        sap_netweaver_ha_pacemaker_profile_path_ascs        |              Full path to directory holding ASCS profile               | no, is generated sanely |
-|            sap_netweaver_ha_pacemaker_ascs_vip             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
+|            sap_netweaver_ha_pacemaker_vip_ascs             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
 |        sap_netweaver_ha_pacemaker_instance_name_ers        |                           ERS Instance name                            |           yes           |
 |       sap_netweaver_ha_pacemaker_instance_number_ers       |                          ERS instance number                           |           yes           |
 |        sap_netweaver_ha_pacemaker_profile_file_ers         |                Full path and file name of ASCS profile                 | no, is generated sanely |
 |        sap_netweaver_ha_pacemaker_profile_path_ers         |              Full path to directory holding ASCS profile               | no, is generated sanely |
-|             sap_netweaver_ha_pacemaker_ers_vip             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
+|             sap_netweaver_ha_pacemaker_vip_ers             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
 |        sap_netweaver_ha_pacemaker_e4s_repos_ppc64le        |                                                                        |           no            |
 |        sap_netweaver_ha_pacemaker_e4s_repos_x86_64         |                                                                        |           no            |
 |          sap_netweaver_ha_pacemaker_fsdevice_ascs          |                    ascs profile filesystem resource                    |           yes           |
