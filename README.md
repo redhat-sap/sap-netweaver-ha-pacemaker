@@ -16,12 +16,12 @@ HA configuration of pacemaker for SAP Netweaver software
 |    sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb    |              Default: no. Deal with Azure load balancer?               |           no            |
 |               sap_netweaver_ha_pacemaker_sid               |                          SID of this instance                          |           yes           |
 |          sap_netweaver_ha_pacemaker_profile_path           |                Full path of directory holding profiles                 | no, is generated sanely |
-|       sap_netweaver_ha_pacemaker_instance_name_ascs        |                           ASCS instance name                           |           yes           |
+|       sap_netweaver_ha_pacemaker_instance_name_ascs        |                         ASCS Profile file name                         |           yes           |
 |      sap_netweaver_ha_pacemaker_instance_number_ascs       |                          ASCS instance number                          |           yes           |
 |        sap_netweaver_ha_pacemaker_profile_file_ascs        |                   Full path and name of ASCS profile                   | no, is generated sanely |
 |        sap_netweaver_ha_pacemaker_profile_path_ascs        |              Full path to directory holding ASCS profile               | no, is generated sanely |
 |            sap_netweaver_ha_pacemaker_vip_ascs             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
-|        sap_netweaver_ha_pacemaker_instance_name_ers        |                           ERS Instance name                            |           yes           |
+|        sap_netweaver_ha_pacemaker_instance_name_ers        |                         ERS Profile file name                          |           yes           |
 |       sap_netweaver_ha_pacemaker_instance_number_ers       |                          ERS instance number                           |           yes           |
 |        sap_netweaver_ha_pacemaker_profile_file_ers         |                Full path and file name of ASCS profile                 | no, is generated sanely |
 |        sap_netweaver_ha_pacemaker_profile_path_ers         |              Full path to directory holding ASCS profile               | no, is generated sanely |
@@ -83,3 +83,5 @@ This is a list of the most common fencing devices:
 * Is this the right place for Azure LB?
 * If using clustering, the sap_s4netweaver_deployment is likely going to need the hosts setup, so this is a dupe
 * /etc/hosts perhaps should have ansible tags in it, either way, so the several roles can not clobber each other
+* Can we generate sap_netweaver_ha_pacemaker_instance_name_XXX from SAPLOCALHOST_XXX? Should SAPLOCALHOST_XXX be in /etc/hosts????
+* 
