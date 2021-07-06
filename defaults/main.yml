@@ -44,6 +44,6 @@ sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
 # sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_instance_name_ascs + sap_netweaver_ha_pacemaker_instance_number_ascs }}"
 # sap_netweaver_ha_pacemaker_mntdir_ers: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_instance_name_ers + sap_netweaver_ha_pacemaker_instance_number_ers }}"
 # sap_netweaver_ha_pacemaker_mntdir_sapmnt: '/sapmnt'
-# sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_sid }}/SYS'
 # sap_netweaver_ha_pacemaker_mntdir_trans: '/usr/sap/trans'
+# sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_sid }}/SYS'
 

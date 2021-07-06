@@ -20,8 +20,8 @@ sap_netweaver_ha_pacemaker_fstype_sys: "{{ sap_netweaver_ha_pacemaker_fstype }}"
 sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/ASCS' + sap_netweaver_ha_pacemaker_instance_number_ascs }}"
 sap_netweaver_ha_pacemaker_mntdir_ers: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/ERS' + sap_netweaver_ha_pacemaker_instance_number_ers }}"
 sap_netweaver_ha_pacemaker_mntdir_sapmnt: '/sapmnt'
-sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_sid }}/SYS'
 sap_netweaver_ha_pacemaker_mntdir_trans: '/usr/sap/trans'
+sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_sid }}/SYS'
 
 
 
