@@ -43,7 +43,7 @@
   command: >
     pcs stonith create {{ sap_netweaver_ha_pacemaker_fencing_device.name }} {{ sap_netweaver_ha_pacemaker_fencing_device.type }}
     ipaddr={{ sap_netweaver_ha_pacemaker_fencing_device.ip }} login={{ sap_netweaver_ha_pacemaker_fencing_device.user }}
-    {{ password_frag }} pcmk_host_list={{ sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_list }} op monitor interval=30
+    {{ password_frag }} pcmk_host_list={{ sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_list }} ssl=1 ssl_insecure=1 op monitor interval=30
   when:
     - sap_netweaver_ha_pacemaker_fencing_device.type != "fence_azure_arm"
     - sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_list is defined
@@ -55,7 +55,7 @@
   command: >
     pcs stonith create {{ sap_netweaver_ha_pacemaker_fencing_device.name }} {{ sap_netweaver_ha_pacemaker_fencing_device.type }}
     ipaddr={{ sap_netweaver_ha_pacemaker_fencing_device.ip }} login={{ sap_netweaver_ha_pacemaker_fencing_device.user }}
-    {{ password_frag }} pcmk_host_map={{ sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_map }} op monitor interval=30
+    {{ password_frag }} pcmk_host_map={{ sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_map }} ssl=1 ssl_insecure=1 op monitor interval=30
   when:
     - sap_netweaver_ha_pacemaker_fencing_device.type != "fence_azure_arm"
     - sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_map is defined
