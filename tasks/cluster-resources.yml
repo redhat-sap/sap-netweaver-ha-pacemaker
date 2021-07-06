@@ -79,14 +79,14 @@
   changed_when: "'Assumed agent name' in create_ascs_instance.stdout"
   run_once: true
 
-# - name: Create Virtual IP resource for ERS
-#   shell: |
-#     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
-#     IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ers }}" \
-#      --group {{ _ers_group }}
-#   register: create_ip_ers
-#   changed_when: "'Assumed agent name' in create_ip_ers.stdout"
-#   run_once: true
+- name: Create Virtual IP resource for ERS
+  shell: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
+    IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ers }}" \
+     --group {{ _ers_group }}
+  register: create_ip_ers
+  changed_when: "'Assumed agent name' in create_ip_ers.stdout"
+  run_once: true
 
 - name: Create load balancer for ERS
   shell:
