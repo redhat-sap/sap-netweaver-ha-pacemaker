@@ -80,8 +80,8 @@ This is a list of the most common fencing devices:
 * This remains mostly untested against a range of systems.
 * Var docs
 * FS paths should match samples from docs
-* Is this the right place for Azure LB?
-* If using clustering, the sap_s4netweaver_deployment is likely going to need the hosts setup, so this is a dupe
+* Is this the right place for Azure LB? (commented out as wasn't going to work, anyway)
+* If using clustering, the sap_s4netweaver_deployment is likely going to need /etc/hosts setup, so this is a dupe
 * /etc/hosts perhaps should have ansible tags in it, either way, so the several roles can not clobber each other
 * Can we generate sap_netweaver_ha_pacemaker_instance_name_XXX from SAPLOCALHOST_XXX? Should SAPLOCALHOST_XXX be in /etc/hosts????
 * 
