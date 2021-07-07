@@ -22,7 +22,7 @@
   changed_when: "'Defaults do not apply to resource' in rconfig.stdout"
   when: sap_netweaver_ha_pacemaker_threshold
 
-- name: "Create filesystem resource for {{ item }}"
+- name: "Create filesystem resources"
   shell: pcs resource create '{{ _name }}' Filesystem device='{{ _dev }}' directory='{{ _dir }}' fstype='{{ _type }}' clone interleave=true
   register: create_fs_mnt
   changed_when: "'Assumed agent name' in create_fs_mnt.stdout"
