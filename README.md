@@ -50,16 +50,17 @@ For each of thing={'ascs', 'ers', 'sapmnt', 'sys', 'trans'}, we create a PCS fil
 ### STONITH fencing
 The following variables are common to all fencing devices (except those on hyperscalers)
 
-|                         variable                         |                                      info                                       | required? |
-|:--------------------------------------------------------:|:-------------------------------------------------------------------------------:|:---------:|
-|      sap_netweaver_ha_pacemaker_fencing_device.name      |                           Name of the fencing device                            |    yes    |
-|      sap_netweaver_ha_pacemaker_fencing_device.type      |                               Fencing device type                               |   yes *   |
-|       sap_netweaver_ha_pacemaker_fencing_device.ip       |                        IP address of the fencing device                         |    yes    |
-|      sap_netweaver_ha_pacemaker_fencing_device.user      |                    Username to connect to the fencing device                    |    yes    |
-|      sap_netweaver_ha_pacemaker_fencing_device.pwd       |                    Password to connect to the fencing device                    |    yes    |
-| sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_list |                 List of nodes controlled by the fencing device                  |   yes *   |
-| sap_netweaver_ha_pacemaker_fencing_device.password_file  | Full path/filename to 'password script' to use for fencing device configuration |    no     |
-| sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_map  |                    Mapping of the hostnames/ip of the nodes                     |   yes*    |
+|                         variable                         |                                              info                                              | required? |
+|:--------------------------------------------------------:|:----------------------------------------------------------------------------------------------:|:---------:|
+|      sap_netweaver_ha_pacemaker_fencing_device.name      |                                   Name of the fencing device                                   |    yes    |
+|      sap_netweaver_ha_pacemaker_fencing_device.type      |                                      Fencing device type                                       |   yes *   |
+|       sap_netweaver_ha_pacemaker_fencing_device.ip       |                                IP address of the fencing device                                |    yes    |
+|      sap_netweaver_ha_pacemaker_fencing_device.user      |                           Username to connect to the fencing device                            |    yes    |
+|      sap_netweaver_ha_pacemaker_fencing_device.pwd       |                           Password to connect to the fencing device                            |    yes    |
+| sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_list |                         List of nodes controlled by the fencing device                         |   yes *   |
+| sap_netweaver_ha_pacemaker_fencing_device.password_file  |        Full path/filename to 'password script' to use for fencing device configuration         |    no     |
+| sap_netweaver_ha_pacemaker_fencing_device.pcmk_host_map  |                            Mapping of the hostnames/ip of the nodes                            |   yes*    |
+| sap_netweaver_ha_pacemaker_fencing_device.custom_options | Additional options to pass to fence device creation, e.g. "ssl=1 ssl_insecure=1 power_wait=30" |    no     |
  
 \* Must provide either a pcmk_host_list or a pcmk_host_map, per https://access.redhat.com/solutions/2619961 for a discussion on host_list vs host_map
 
