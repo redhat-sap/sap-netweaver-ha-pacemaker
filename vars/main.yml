@@ -1,7 +1,10 @@
 sap_netweaver_ha_pacemaker_profile_path: "/sapmnt/{{ sap_netweaver_ha_pacemaker_sid }}/profile"
 sap_netweaver_ha_pacemaker_profile_path_ascs: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
+sap_netweaver_ha_pacemaker_instance_name_ascs: "{{ sap_netweaver_ha_pacemaker_sid }}_ASCS{{sap_netweaver_ha_pacemaker_instance_number_ascs }}_{{ sap_netweaver_ha_pacemaker_alias_ascs }}"
 sap_netweaver_ha_pacemaker_profile_file_ascs: "{{ sap_netweaver_ha_pacemaker_profile_path_ascs }}/{{ sap_netweaver_ha_pacemaker_instance_name_ascs }}"
+
 sap_netweaver_ha_pacemaker_profile_path_ers: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
+sap_netweaver_ha_pacemaker_instance_name_ers: "{{ sap_netweaver_ha_pacemaker_sid }}_ASCS{{sap_netweaver_ha_pacemaker_instance_number_ers }}_{{ sap_netweaver_ha_pacemaker_alias_ers }}"
 sap_netweaver_ha_pacemaker_profile_file_ers: "{{ sap_netweaver_ha_pacemaker_profile_path_ers }}/{{ sap_netweaver_ha_pacemaker_instance_name_ers }}"
 
 sap_netweaver_ha_pacemaker_fsr_name_ascs: "{{ sap_netweaver_ha_pacemaker_sid }}_fs_ascs"
