@@ -36,8 +36,8 @@
     _dev:  "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fsdevice_' + item) }}"
     _dir:  "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_mntdir_' + item) }}"
     _type: "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fstype_' + item) }}"
-    _options: "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) defined else '' }}"
-    _ocf_check: "{{ ('OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_' + item) + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) defined else '' }}"
+    _options: "{{ ('options= + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) defined else '' }}"
+    _ocf_check: "{{ ('OCF_CHECK_LEVEL= + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_' + item) ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) defined else '' }}"
   loop:
     - sapmnt
     - sys
