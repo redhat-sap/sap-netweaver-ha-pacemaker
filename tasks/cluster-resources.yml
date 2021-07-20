@@ -25,7 +25,7 @@
 # ENSA 1: https://access.redhat.com/articles/3150081#configure-shared-filesystems
 # ENSA 2: https://access.redhat.com/articles/3974941#configure-shared-filesystems
 - name: "Create filesystem resources"
-  shell: pcs resource create '{{ _name }}' Filesystem device='{{ _dev }}' directory='{{ _dir }}' fstype='{{ _type }}' {{ _options }} {{ _ocf_check }} clone interleave=true
+  shell: pcs resource create '{{ _name }}' Filesystem device='{{ _dev }}' directory='{{ _dir }}' fstype='{{ _type }}' {{ _options }} clone interleave=true {{ _ocf_check }}
   register: create_fs_mnt
   changed_when: "'Assumed agent name' in create_fs_mnt.stdout"
   run_once: true
@@ -36,8 +36,8 @@
     _dev:  "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fsdevice_' + item) }}"
     _dir:  "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_mntdir_' + item) }}"
     _type: "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fstype_' + item) }}"
-    _options: "{{ ('options=' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
-    _ocf_check: "{{ ('OCF_CHECK_LEVEL=' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_' + item) ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
+    _options: "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
+    _ocf_check: "{{ ('OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_' + item) + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
   loop:
     - sapmnt
     - sys
