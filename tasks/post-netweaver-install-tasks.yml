@@ -26,5 +26,6 @@
 - name: Update /usr/sap/services
   replace:
     path: /usr/sap/sapservices
+    backup: yes
     regexp: '(LD_LIBRARY*)'
     replace: '#\1'

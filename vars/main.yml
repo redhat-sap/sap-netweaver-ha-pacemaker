@@ -21,6 +21,21 @@ sap_netweaver_ha_pacemaker_fstype_sapmnt: "{{ sap_netweaver_ha_pacemaker_fstype 
 sap_netweaver_ha_pacemaker_fstype_trans: "{{ sap_netweaver_ha_pacemaker_fstype }}"
 sap_netweaver_ha_pacemaker_fstype_sys: "{{ sap_netweaver_ha_pacemaker_fstype }}"
 
+sap_netweaver_ha_pacemaker_mntoption: "" #no specific fsmount options
+sap_netweaver_ha_pacemaker_mntoption_ascs: "{{ sap_netweaver_ha_pacemaker_mntoption }}"
+sap_netweaver_ha_pacemaker_mntoption_ers: "{{ sap_netweaver_ha_pacemaker_mntoption }}"
+sap_netweaver_ha_pacemaker_mntoption_sapmnt: "{{ sap_netweaver_ha_pacemaker_mntoption }}"
+sap_netweaver_ha_pacemaker_mntoption_trans: "{{ sap_netweaver_ha_pacemaker_mntoption }}"
+sap_netweaver_ha_pacemaker_mntoption_sys: "{{ sap_netweaver_ha_pacemaker_mntoption }}"
+
+sap_netweaver_ha_pacemaker_ocf_check: '20' #10 = block check, 20=file check (10 is noop for NFS)
+sap_netweaver_ha_pacemaker_ocf_check_ascs: "{{ sap_netweaver_ha_pacemaker_ocf_check }}"
+sap_netweaver_ha_pacemaker_ocf_check_ers: "{{ sap_netweaver_ha_pacemaker_ocf_check }}"
+sap_netweaver_ha_pacemaker_ocf_check_sapmnt: "{{ sap_netweaver_ha_pacemaker_ocf_check }}"
+sap_netweaver_ha_pacemaker_ocf_check_trans: "{{ sap_netweaver_ha_pacemaker_ocf_check }}"
+sap_netweaver_ha_pacemaker_ocf_check_sys: "{{ sap_netweaver_ha_pacemaker_ocf_check }}"
+
+
 sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/ASCS' + sap_netweaver_ha_pacemaker_instance_number_ascs }}"
 sap_netweaver_ha_pacemaker_mntdir_ers: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/ERS' + sap_netweaver_ha_pacemaker_instance_number_ers }}"
 sap_netweaver_ha_pacemaker_mntdir_sapmnt: '/sapmnt'
@@ -28,5 +43,7 @@ sap_netweaver_ha_pacemaker_mntdir_trans: '/usr/sap/trans'
 sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_sid }}/SYS'
 
 
+sap_netweaver_ha_pacemaker_auto_recover_ascs: false
+sap_netweaver_ha_pacemaker_auto_recover_ers: false
 
 

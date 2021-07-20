@@ -5,46 +5,51 @@ HA configuration of pacemaker for SAP Netweaver software
 
 ### Role variables
 
-|                          variable                          |                                  info                                  |        required?        |
-|:----------------------------------------------------------:|:----------------------------------------------------------------------:|:-----------------------:|
-| sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage |              Attempt to manage shared (eg. nfs) storage?               |   no, default is yes    |
-|       sap_netweaver_ha_pacemaker_hacluster_node1_ip        |                  IP address of first node in cluster                   |           yes           |
-|      sap_netweaver_ha_pacemaker_hacluster_node1_fqdn       |                     FWDN of first node in cluster                      |           yes           |
-|       sap_netweaver_ha_pacemaker_hacluster_node2_ip        |                  IP address of second node in cluster                  |           yes           |
-|      sap_netweaver_ha_pacemaker_hacluster_node2_fqdn       |                     FWDN of second node in cluster                     |           yes           |
-|            sap_netweaver_ha_pacemaker_ensa_ver             |                            ENSA/ERS version                            |      no, default 2      |
-|    sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb    |              Default: no. Deal with Azure load balancer?               |           no            |
-|               sap_netweaver_ha_pacemaker_sid               |                          SID of this instance                          |           yes           |
-|          sap_netweaver_ha_pacemaker_profile_path           |                Full path of directory holding profiles                 | no, is generated sanely |
-|           sap_netweaver_ha_pacemaker_alias_ascs            |                            ASCS host alias                             |           yes           |
-|      sap_netweaver_ha_pacemaker_instance_number_ascs       |                          ASCS instance number                          |           yes           |
-|       sap_netweaver_ha_pacemaker_instance_name_ascs        |                 ASCS Instance Name (profile file name)                 | no, is generated sanely |
-|        sap_netweaver_ha_pacemaker_profile_file_ascs        |                   Full path and name of ASCS profile                   | no, is generated sanely |
-|        sap_netweaver_ha_pacemaker_profile_path_ascs        |              Full path to directory holding ASCS profile               | no, is generated sanely |
-|            sap_netweaver_ha_pacemaker_vip_ascs             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
-|            sap_netweaver_ha_pacemaker_alias_ers            |                             ERS host alias                             |           yes           |
-|       sap_netweaver_ha_pacemaker_instance_number_ers       |                          ERS instance number                           |           yes           |
-|        sap_netweaver_ha_pacemaker_instance_name_ers        |                 ASCS Instance Name (profile file name)                 | no, is generated sanely |
-|        sap_netweaver_ha_pacemaker_profile_file_ers         |                Full path and file name of ASCS profile                 | no, is generated sanely |
-|        sap_netweaver_ha_pacemaker_profile_path_ers         |              Full path to directory holding ASCS profile               | no, is generated sanely |
-|             sap_netweaver_ha_pacemaker_vip_ers             |             Virtual (cluster managed) IP address for ASCS              |           yes           |
-|        sap_netweaver_ha_pacemaker_e4s_repos_ppc64le        |        List of required extended support repos for ppc64le arch        |           no            |
-|        sap_netweaver_ha_pacemaker_e4s_repos_x86_64         |        List of required extended support repos for x86_64 arch         |           no            |
-|     sap_netweaver_ha_pacemaker_standard_repos_ppc64le      |        List of required standard support repos for ppc64le arch        |           no            |
-|      sap_netweaver_ha_pacemaker_standard_repos_x86_64      |        List of required standard support repos for x86_64 arch         |           no            |
-|          sap_netweaver_ha_pacemaker_fsdevice_ascs          |                    ascs profile filesystem resource                    |           yes           |
-|          sap_netweaver_ha_pacemaker_fsdevice_ers           |                    ers profile filesystem resource                     |           yes           |
-|         sap_netweaver_ha_pacemaker_fsdevice_sapmnt         |                       sapmnt filesystem resource                       |           yes           |
-|          sap_netweaver_ha_pacemaker_fsdevice_sys           |                        sys filesystem resource                         |           yes           |
-|         sap_netweaver_ha_pacemaker_fsdevice_trans          |                       trans filesystem resource                        |           yes           |
-|           sap_netweaver_ha_pacemaker_mntdir_ascs           |                 ASCS filesystem mount point directory                  |           yes           |
-|           sap_netweaver_ha_pacemaker_mntdir_ers            |                  ERS filesystem mount point directory                  |           yes           |
-|          sap_netweaver_ha_pacemaker_mntdir_sapmnt          |                sapmnt filesystem mount point directory                 |           yes           |
-|           sap_netweaver_ha_pacemaker_mntdir_sys            |                  sys filesystem mount point directory                  |           yes           |
-|          sap_netweaver_ha_pacemaker_mntdir_trans           |                 trans filesystem mount point directory                 |           yes           |
-|             sap_netweaver_ha_pacemaker_fstype              | Type of filesystem resource of managed filesystems see: pcs fstype=xxx |           yes           |
-|         sap_netweaver_ha_pacemaker_fstype_<thing>          |  Type of filesystem resource for <thing> (inhereted value from above)  |           no            |
-|        sap_netweaver_ha_pacemaker_fsr_name_<thing>         |          PCS resource name for managed filesystem of <thing>           |           no            |
+|                          variable                          |                                        info                                         |        required?        |
+|:----------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:-----------------------:|
+| sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage |                     Attempt to manage shared (eg. nfs) storage?                     |   no, default is yes    |
+|       sap_netweaver_ha_pacemaker_hacluster_node1_ip        |                         IP address of first node in cluster                         |           yes           |
+|      sap_netweaver_ha_pacemaker_hacluster_node1_fqdn       |                            FWDN of first node in cluster                            |           yes           |
+|       sap_netweaver_ha_pacemaker_hacluster_node2_ip        |                        IP address of second node in cluster                         |           yes           |
+|      sap_netweaver_ha_pacemaker_hacluster_node2_fqdn       |                           FWDN of second node in cluster                            |           yes           |
+|            sap_netweaver_ha_pacemaker_ensa_ver             |                                  ENSA/ERS version                                   |      no, default 2      |
+|    sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb    |                     Default: no. Deal with Azure load balancer?                     |           no            |
+|               sap_netweaver_ha_pacemaker_sid               |                                SID of this instance                                 |           yes           |
+|          sap_netweaver_ha_pacemaker_profile_path           |                       Full path of directory holding profiles                       | no, is generated sanely |
+|           sap_netweaver_ha_pacemaker_alias_ascs            |                                   ASCS host alias                                   |           yes           |
+|      sap_netweaver_ha_pacemaker_instance_number_ascs       |                                ASCS instance number                                 |           yes           |
+|       sap_netweaver_ha_pacemaker_instance_name_ascs        |                       ASCS Instance Name (profile file name)                        | no, is generated sanely |
+|        sap_netweaver_ha_pacemaker_profile_file_ascs        |                         Full path and name of ASCS profile                          | no, is generated sanely |
+|        sap_netweaver_ha_pacemaker_profile_path_ascs        |                     Full path to directory holding ASCS profile                     | no, is generated sanely |
+|            sap_netweaver_ha_pacemaker_vip_ascs             |                    Virtual (cluster managed) IP address for ASCS                    |           yes           |
+|            sap_netweaver_ha_pacemaker_alias_ers            |                                   ERS host alias                                    |           yes           |
+|       sap_netweaver_ha_pacemaker_instance_number_ers       |                                 ERS instance number                                 |           yes           |
+|        sap_netweaver_ha_pacemaker_instance_name_ers        |                       ASCS Instance Name (profile file name)                        | no, is generated sanely |
+|        sap_netweaver_ha_pacemaker_profile_file_ers         |                       Full path and file name of ASCS profile                       | no, is generated sanely |
+|        sap_netweaver_ha_pacemaker_profile_path_ers         |                     Full path to directory holding ASCS profile                     | no, is generated sanely |
+|             sap_netweaver_ha_pacemaker_vip_ers             |                    Virtual (cluster managed) IP address for ASCS                    |           yes           |
+|        sap_netweaver_ha_pacemaker_e4s_repos_ppc64le        |              List of required extended support repos for ppc64le arch               |           no            |
+|        sap_netweaver_ha_pacemaker_e4s_repos_x86_64         |               List of required extended support repos for x86_64 arch               |           no            |
+|     sap_netweaver_ha_pacemaker_standard_repos_ppc64le      |              List of required standard support repos for ppc64le arch               |           no            |
+|      sap_netweaver_ha_pacemaker_standard_repos_x86_64      |               List of required standard support repos for x86_64 arch               |           no            |
+|          sap_netweaver_ha_pacemaker_fsdevice_ascs          |                          ascs profile filesystem resource                           |           yes           |
+|          sap_netweaver_ha_pacemaker_fsdevice_ers           |                           ers profile filesystem resource                           |           yes           |
+|         sap_netweaver_ha_pacemaker_fsdevice_sapmnt         |                             sapmnt filesystem resource                              |           yes           |
+|          sap_netweaver_ha_pacemaker_fsdevice_sys           |                               sys filesystem resource                               |           yes           |
+|         sap_netweaver_ha_pacemaker_fsdevice_trans          |                              trans filesystem resource                              |           yes           |
+|           sap_netweaver_ha_pacemaker_mntdir_ascs           |                        ASCS filesystem mount point directory                        |           yes           |
+|           sap_netweaver_ha_pacemaker_mntdir_ers            |                        ERS filesystem mount point directory                         |           yes           |
+|          sap_netweaver_ha_pacemaker_mntdir_sapmnt          |                       sapmnt filesystem mount point directory                       |           yes           |
+|           sap_netweaver_ha_pacemaker_mntdir_sys            |                        sys filesystem mount point directory                         |           yes           |
+|          sap_netweaver_ha_pacemaker_mntdir_trans           |                       trans filesystem mount point directory                        |           yes           |
+|             sap_netweaver_ha_pacemaker_fstype              |       Type of filesystem resource of managed filesystems see: pcs fstype=xxx        |           yes           |
+|         sap_netweaver_ha_pacemaker_fstype_<thing>          |        Type of filesystem resource for <thing> (inherited value from above)         |           no            |
+|        sap_netweaver_ha_pacemaker_fsr_name_<thing>         |                 PCS resource name for managed filesystem of <thing>                 |           no            |
+|        sap_netweaver_ha_pacemaker_auto_recover_ascs        | Sets SAPInstance AUTOMATIC_RECOVER=true if ansible truthy (otherwise skips setting) |           no            |
+|        sap_netweaver_ha_pacemaker_auto_recover_ers         | Sets SAPInstance AUTOMATIC_RECOVER=true if ansible truthy (otherwise skips setting) |           no            |
+|            sap_netweaver_ha_pacemaker_ocf_check            |                 Default for OCF_CHECK_LEVEL= value for mount points                 |           no            |
+|        sap_netweaver_ha_pacemaker_ocf_check_<thing>        |    OCF_CHECK_LEVEL= value for <thing> mount points (inherited value from above)     |           no            |
+
 #### Paths, Files, Filesystems
 `sap_netweaver_ha_pacemaker_profile_path` is the root directory holding the "profiles" of ASCS and ERS. It is generated based on convention and the provided SID. `sap_netweaver_ha_pacemaker_profile_path_ascs` and `sap_netweaver_ha_pacemaker_profile_path_ers` are set to it (or overridden), and the respective `profile_file` values are generated based on the particular `_alias_` names and IDs (or overridden).
 
