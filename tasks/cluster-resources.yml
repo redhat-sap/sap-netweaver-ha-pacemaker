@@ -67,7 +67,7 @@
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_fsr_name_ascs }} Filesystem device='{{ sap_netweaver_ha_pacemaker_fsdevice_ascs }}' \
     directory={{ sap_netweaver_ha_pacemaker_mntdir_ascs }} \
-    fstype={{ sap_netweaver_ha_pacemaker_fstype_ascs }} force_unmount=safe  {{ _options }}  --group {{ _ascs_group }}{{ _ocf_check }}
+    fstype={{ sap_netweaver_ha_pacemaker_fstype_ascs }} force_unmount=safe  {{ _options }}  --group {{ _ascs_group }} {{ _ocf_check }}
   register: create_fs_ascs
   changed_when: "'Assumed agent name' in create_fs_ascs.stdout"
   run_once: true
@@ -111,7 +111,7 @@
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_fsr_name_ers }} Filesystem device='{{ sap_netweaver_ha_pacemaker_fsdevice_ers }}' \
     directory={{ sap_netweaver_ha_pacemaker_mntdir_ers }} \
-    fstype={{ sap_netweaver_ha_pacemaker_fstype_ers }} force_unmount=safe {{ _options }} --group {{ _ers_group }}  {{ _ocf_check }}
+    fstype={{ sap_netweaver_ha_pacemaker_fstype_ers }} force_unmount=safe {{ _options }} --group {{ _ers_group }} {{ _ocf_check }}
   register: create_fs_ers
   changed_when: "'Assumed agent name' in create_fs_ers.stdout"
   run_once: true
