@@ -1,7 +1,7 @@
 ---
 - name: Set group name facts
   set_fact:
-    _ascs_group: "{{ sap_netweaver_ha_pacemaker_sid }}_ASC{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}_group"
+    _ascs_group: "{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_ascs_key }}{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}_group"
     _ers_group: "{{ sap_netweaver_ha_pacemaker_sid }}_ERS{{ sap_netweaver_ha_pacemaker_instance_number_ers }}_group"
 
 - name: Ensure Cluster is in maintenance mode
@@ -45,7 +45,7 @@
 
 - name: Create Virtual IP resource for ASCS
   shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_ascs{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
+    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_{{sap_netweaver_ha_pacemaker_ascs_key | lower }}{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
     IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ascs }}" \
     --group {{ _ascs_group }}
   register: create_ip_ascs
@@ -79,7 +79,7 @@
 
 - name: Create SAP ASCS instance resource
   shell: |
-     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ascs{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
+     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_ascs_key | lower }}{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
      SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ascs }} START_PROFILE={{ sap_netweaver_ha_pacemaker_profile_file_ascs }} \
      {{ _recover }} meta resource-stickiness=5000 \
      --group {{ _ascs_group }}

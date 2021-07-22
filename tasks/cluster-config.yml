@@ -12,7 +12,7 @@
     name: hacluster
     password: "{{ sap_netweaver_ha_pacemaker_hacluster_password | password_hash('sha512') }}"
 
-# For fenced nodes, they can come up too quickly, and like a zombie, be double tapped by pacemaker
+# For fenced nodes, they can come up too quickly, and like a zombie, get double tapped by pacemaker too fast.
 #   This delay might not be needed on less than super fast environments, but for now, is "always"
 #     TODO: Make this startup delay optional
 - name: Ensure /etc/systemd/system/corosync.service.d directory exists
@@ -33,7 +33,6 @@
     block: |
       [Service]
       ExecStartPre=/bin/sleep 60
-
 
 - name: Ensure pcsd service is enabled
   systemd:
@@ -64,7 +63,7 @@
   command: |
     pcs cluster setup {{ _name }} {{ sap_netweaver_ha_pacemaker_hacluster_cluster_name }} \
     {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} \
-    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} --force
+    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} --force --wait=600 --request-timeout=600
   register: create_cluster
   changed_when: "'Cluster has been successfully set up' in create_cluster.stdout"
   vars:
