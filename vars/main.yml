@@ -1,7 +1,7 @@
 sap_netweaver_ha_pacemaker_profile_path: "/sapmnt/{{ sap_netweaver_ha_pacemaker_sid }}/profile"
 
 sap_netweaver_ha_pacemaker_profile_path_ascs: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
-sap_netweaver_ha_pacemaker_instance_name_ascs: "{{ sap_netweaver_ha_pacemaker_sid }}_ASCS{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}_{{ sap_netweaver_ha_pacemaker_alias_ascs }}"
+sap_netweaver_ha_pacemaker_instance_name_ascs: "{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_ascs_key}}{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}_{{ sap_netweaver_ha_pacemaker_alias_ascs }}"
 sap_netweaver_ha_pacemaker_profile_file_ascs: "{{ sap_netweaver_ha_pacemaker_profile_path_ascs }}/{{ sap_netweaver_ha_pacemaker_instance_name_ascs }}"
 
 sap_netweaver_ha_pacemaker_profile_path_ers: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
@@ -36,7 +36,7 @@ sap_netweaver_ha_pacemaker_ocf_check_trans: "{{ sap_netweaver_ha_pacemaker_ocf_c
 sap_netweaver_ha_pacemaker_ocf_check_sys: "{{ sap_netweaver_ha_pacemaker_ocf_check }}"
 
 
-sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/ASCS' + sap_netweaver_ha_pacemaker_instance_number_ascs }}"
+sap_netweaver_ha_pacemaker_mntdir_ascs: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/' + sap_netweaver_ha_pacemaker_ascs_key + sap_netweaver_ha_pacemaker_instance_number_ascs }}"
 sap_netweaver_ha_pacemaker_mntdir_ers: "{{ '/usr/sap/' + sap_netweaver_ha_pacemaker_sid + '/ERS' + sap_netweaver_ha_pacemaker_instance_number_ers }}"
 sap_netweaver_ha_pacemaker_mntdir_sapmnt: '/sapmnt'
 sap_netweaver_ha_pacemaker_mntdir_trans: '/usr/sap/trans'
