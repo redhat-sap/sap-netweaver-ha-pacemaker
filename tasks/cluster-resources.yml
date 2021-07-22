@@ -125,13 +125,13 @@
   shell: |
     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ers }} START_PROFILE={{ sap_netweaver_ha_pacemaker_profile_file_ers }} \
-    {{ _recover }} meta IS_ERS=true \
-    --group {{ _ers_group }}
+    {{ _recover }} {{ _isers }} meta --group {{ _ers_group }}
   register: create_instance_ers
   changed_when: "'Assumed agent name' in create_instance_ers.stdout"
   run_once: true
   vars:
     _recover: "{{ 'AUTOMATIC_RECOVER=true' if sap_netweaver_ha_pacemaker_auto_recover_ers else '' }}"
+    _isers: "{{ 'IS_ERS=true' if sap_netweaver_ha_pacemaker_ensa_ver ==1 else ''}}"
 
 - name: Colocate Cluster colocation constraint
   shell: |

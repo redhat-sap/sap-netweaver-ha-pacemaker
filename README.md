@@ -93,3 +93,7 @@ This is a list of the most common fencing devices:
 * If using clustering, the sap_s4netweaver_deployment is likely going to need /etc/hosts setup, so this is a dupe
 * /etc/hosts perhaps should have ansible tags in it, either way, so the several roles can not clobber each other
 * Should instance aliases be in /etc/hosts?
+* Rename 'ASCS' to 'APP'(?) everywhere if this "works" with more app stacks than ASCS, like the java thing
+* Some debug mode:
+  *  If possible, make `backup: yes` on file changes conditional
+  *  

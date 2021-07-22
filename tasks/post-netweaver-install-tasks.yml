@@ -3,18 +3,21 @@
 - name: Adapt ASCS profile to prevent sapsrv from restarting it
   replace:
     path: '{{ sap_netweaver_ha_pacemaker_profile_file_ascs }}'
+    backup: yes
     regexp: 'Restart'
     replace: 'Start'
 
 - name: Adapt ERS profile to prevent sapsrv from restarting it
   replace:
     path: '{{ sap_netweaver_ha_pacemaker_profile_file_ers }}'
+    backup: yes
     regexp: 'Restart'
     replace: 'Start'
 
 - name: Remove 'Autostart' from ERS profile
   replace:
     path: /usr/sap/sapservices
+    backup: yes
     regexp: '(Autostart*)'
     replace: '#\1'
 
