@@ -23,16 +23,16 @@
     state: directory
     mode: '0755'
 
-- name:  Setup /etc/systemd/system/corosync.service.d/override.conf
-  blockinfile:
-    owner: root
-    group: root
-    mode:  '0644'
-    create: yes
-    path: "/etc/systemd/system/corosync.service.d/override.conf"
-    block: |
-      [Service]
-      ExecStartPre=/bin/sleep 60
+# - name:  Setup /etc/systemd/system/corosync.service.d/override.conf
+#   blockinfile:
+#     owner: root
+#     group: root
+#     mode:  '0644'
+#     create: yes
+#     path: "/etc/systemd/system/corosync.service.d/override.conf"
+#     block: |
+#       [Service]
+#       ExecStartPre=/bin/sleep 60
 
 - name: Ensure pcsd service is enabled
   systemd:
