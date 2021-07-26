@@ -131,7 +131,7 @@
   run_once: true
   vars:
     _recover: "{{ 'AUTOMATIC_RECOVER=true' if sap_netweaver_ha_pacemaker_auto_recover_ers else '' }}"
-    _isers: "{{ 'IS_ERS=true' if sap_netweaver_ha_pacemaker_ensa_ver ==1 else ''}}"
+    _isers: "{{ 'IS_ERS=true' if sap_netweaver_ha_pacemaker_ensa_ver == 1 else ''}}"
 
 - name: Colocate Cluster colocation constraint
   shell: |
