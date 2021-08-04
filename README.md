@@ -49,7 +49,8 @@ HA configuration of pacemaker for SAP Netweaver software
 |        sap_netweaver_ha_pacemaker_auto_recover_ers         | Sets SAPInstance AUTOMATIC_RECOVER=true if ansible truthy (otherwise skips setting) |           no            |
 |            sap_netweaver_ha_pacemaker_ocf_check            |                 Default for OCF_CHECK_LEVEL= value for mount points                 |           no            |
 |        sap_netweaver_ha_pacemaker_ocf_check_<thing>        |    OCF_CHECK_LEVEL= value for <thing> mount points (inherited value from above)     |           no            |
-
+|          sap_netweaver_ha_pacemaker_startup_delay          |                  Delay in integer seconds for systemd PCS startup                   |           no            |
+| sap_netweaver_ha_pacemaker_save_backups | Save backups of remote files that we change | no|
 #### Paths, Files, Filesystems
 `sap_netweaver_ha_pacemaker_profile_path` is the root directory holding the "profiles" of ASCS and ERS. It is generated based on convention and the provided SID. `sap_netweaver_ha_pacemaker_profile_path_ascs` and `sap_netweaver_ha_pacemaker_profile_path_ers` are set to it (or overridden), and the respective `profile_file` values are generated based on the particular `_alias_` names and IDs (or overridden).
 
@@ -94,6 +95,4 @@ This is a list of the most common fencing devices:
 * /etc/hosts perhaps should have ansible tags in it, either way, so the several roles can not clobber each other
 * Should instance aliases be in /etc/hosts?
 * Rename 'ASCS' to 'APP'(?) everywhere if this "works" with more app stacks than ASCS, like the java thing
-* Some debug mode:
-  *  If possible, make `backup: yes` on file changes conditional
   *  

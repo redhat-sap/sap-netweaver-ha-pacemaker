@@ -71,8 +71,6 @@
 
 
 # For fenced nodes, they can come up too quickly, and like a zombie, get double tapped by pacemaker too fast.
-#   This delay might not be needed on less than super fast environments, but for now, is "always"
-#     TODO: Make this startup delay optional
 # Note: We enable this *after* the initial cluster setup/start, so we don't need to to have ansible know how to
 # wait on the initial, one time, startup.
 - name: Ensure /etc/systemd/system/corosync.service.d directory exists
@@ -82,6 +80,7 @@
     group: root
     state: directory
     mode: '0755'
+  when: sap_netweaver_ha_pacemaker_startup_delay > 0
 
 - name:  Setup /etc/systemd/system/corosync.service.d/override.conf
   blockinfile:
@@ -92,4 +91,5 @@
     path: "/etc/systemd/system/corosync.service.d/override.conf"
     block: |
       [Service]
-      ExecStartPre=/bin/sleep 60
+      ExecStartPre=/bin/sleep {{ sap_netweaver_ha_pacemaker_startup_delay }}
+  when: sap_netweaver_ha_pacemaker_startup_delay > 0

@@ -17,4 +17,6 @@ sap_netweaver_ha_pacemaker_ascs_key: 'ASCS' #sometimes ASCS isn't actually ASCS
 
 sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage: true
 sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
+sap_netweaver_ha_pacemaker_startup_delay: 0 #integer seconds, passed to `sleep`
+sap_netweaver_ha_pacemaker_save_backups: yes
 
