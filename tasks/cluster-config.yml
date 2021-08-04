@@ -28,21 +28,24 @@
 
 - name: Authenticate the cluster Nodes
   command: |
-    pcs {{ _subject }} auth \
+    pcs {{ _subject }} auth {{ _auth }} \
     {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
     -u hacluster -p {{ sap_netweaver_ha_pacemaker_hacluster_password }}
   register: auth_cluster
   changed_when: "'Authorized' in auth_cluster.stdout"
   vars:
-    _subject: "{{ 'cluster' if ansible_lsb.major_release|int == 7 else 'host' }}"
+    _subject: "{{ 'cluster' if ansible_facts['distribution_major_version'] | int == 7 else 'host' }}"
+    _auth: "{{ '--auth' if ansible_facts['distribution_major_version'] | int == 7 else '' }}"
 
 - name: Create RHEL HA Cluster
   command: |
-    pcs cluster setup --name {{ sap_netweaver_ha_pacemaker_hacluster_cluster_name }}
+    pcs cluster setup {{ _name }} {{ sap_netweaver_ha_pacemaker_hacluster_cluster_name }} \
     {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }} \
-    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} \
+    {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }} --force --wait=6000 --start
   register: create_cluster
   changed_when: "'Cluster has been successfully set up' in create_cluster.stdout"
+  vars:
+    _name: "{{ '--name' if ansible_facts['distribution_major_version'] | int == 7 else '' }}"
   run_once: true
 
 - name: Enable the RHEL HA Cluster
@@ -52,7 +55,41 @@
   run_once: true
 
 - name: Start the RHEL HA Cluster
-  command: pcs cluster start --all
+  command: pcs cluster start --all --wait=600 --request-timeout=600
   register: start_cluster
   changed_when: "'Starting Cluster' in start_cluster.stdout"
   run_once: true
+
+- name: Set quorum votes
+  command: pcs quorum expected-votes 2
+  run_once: true
+
+- name: Configure second link
+  command: pcs cluster link add {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }}={{ sap_netweaver_ha_pacemaker_node1_link2_ip }} {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }}={{ sap_netweaver_ha_pacemaker_node2_link2_ip }} options linknumber=2
+  run_once: true
+  when: sap_netweaver_ha_pacemaker_node1_link2_ip is defined and sap_netweaver_ha_pacemaker_node2_link2_ip is defined
+
+
+# For fenced nodes, they can come up too quickly, and like a zombie, get double tapped by pacemaker too fast.
+# Note: We enable this *after* the initial cluster setup/start, so we don't need to to have ansible know how to
+# wait on the initial, one time, startup.
+- name: Ensure /etc/systemd/system/corosync.service.d directory exists
+  file:
+    path: /etc/systemd/system/corosync.service.d
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+  when: sap_netweaver_ha_pacemaker_startup_delay > 0
+
+- name:  Setup /etc/systemd/system/corosync.service.d/override.conf
+  blockinfile:
+    owner: root
+    group: root
+    mode:  '0644'
+    create: yes
+    path: "/etc/systemd/system/corosync.service.d/override.conf"
+    block: |
+      [Service]
+      ExecStartPre=/bin/sleep {{ sap_netweaver_ha_pacemaker_startup_delay }}
+  when: sap_netweaver_ha_pacemaker_startup_delay > 0

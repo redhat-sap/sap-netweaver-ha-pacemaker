@@ -12,16 +12,11 @@ sap_netweaver_ha_pacemaker_standard_repos_ppc64le: rhel-8-for-ppc64le-highavaila
 
 sap_netweaver_ha_pacemaker_hacluster_cluster_name: "ascs_cluster"
 
-#Strongly discouraged to disable
+sap_netweaver_ha_pacemaker_ensa_ver: 2
+sap_netweaver_ha_pacemaker_ascs_key: 'ASCS' #sometimes ASCS isn't actually ASCS 
 
 sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage: true
 sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
+sap_netweaver_ha_pacemaker_startup_delay: 0 #integer seconds, passed to `sleep`
+sap_netweaver_ha_pacemaker_save_backups: yes
 
-sap_netweaver_ha_pacemaker_sid: 
-sap_netweaver_ha_pacemaker_instance_name_ascs:
-sap_netweaver_ha_pacemaker_profile_path: "/sapmnt/{{ sap_netweaver_ha_pacemaker_sid }}/profile"
-sap_netweaver_ha_pacemaker_ascs_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
-sap_netweaver_ha_pacemaker_ascs_profile_file: "{{ sap_netweaver_ha_pacemaker_ascs_profile_path }}/{{ sap_netweaver_ha_pacemaker_instance_name_ascs }}"
-sap_netweaver_ha_pacemaker_instance_name_ers:
-sap_netweaver_ha_pacemaker_ers_profile_path: "{{ sap_netweaver_ha_pacemaker_profile_path }}"
-sap_netweaver_ha_pacemaker_ers_profile_file: "{{ sap_netweaver_ha_pacemaker_ers_profile_path }}/{{ sap_netweaver_ha_pacemaker_instance_name_ers }}"
