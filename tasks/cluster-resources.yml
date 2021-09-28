@@ -152,7 +152,7 @@
 - name: Create Cluster order constraint 2
   shell: |
     pcs constraint order start {{ _ascs_group }}  \
-    then stop {{ _ers_group }} symmetrical=false
+    then stop {{ _ers_group }} kind=optional symmetrical=false
   register: create_constraint1
   changed_when: "'Adding SAPHanaTopology' in create_constraint1.stdout"
   run_once: true  
