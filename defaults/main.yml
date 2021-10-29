@@ -1,16 +1,22 @@
-sap_hana_ha_pacemaker_secondary_read: false
-sap_hana_ha_pacemaker_configure_firewall: false
-sap_hana_ha_pacemaker_stickiness: false
-sap_hana_ha_pacemaker_threshold: false
+sap_netweaver_ha_pacemaker_secondary_read: false
+sap_netweaver_ha_pacemaker_configure_firewall: false
+sap_netweaver_ha_pacemaker_stickiness: false
+sap_netweaver_ha_pacemaker_threshold: false
 
-sap_hana_ha_pacemaker_use_e4s: true
+sap_netweaver_ha_pacemaker_use_e4s: true
 
-sap_hana_ha_pacemaker_standard_repos_x86_64: rhel-8-for-x86_64-highavailability-rpms
-sap_hana_ha_pacemaker_e4s_repos_x86_64: rhel-8-for-x86_64-highavailability-e4s-rpms
-sap_hana_ha_pacemaker_standard_repos_ppc64le: rhel-8-for-ppc64le-highavailability-rpms
-sap_hana_ha_pacemaker_e4s_repos_ppc64le: rhel-8-for-ppc64le-highavailability-e4s-rpm
+sap_netweaver_ha_pacemaker_e4s_repos_x86_64: rhel-8-for-x86_64-highavailability-e4s-rpms
+sap_netweaver_ha_pacemaker_standard_repos_x86_64: rhel-8-for-x86_64-highavailability-rpms
+sap_netweaver_ha_pacemaker_e4s_repos_ppc64le: rhel-8-for-ppc64le-highavailability-e4s-rpm
+sap_netweaver_ha_pacemaker_standard_repos_ppc64le: rhel-8-for-ppc64le-highavailability-rpms
 
-sap_hana_ha_pacemaker_cluster_name: "hana_cluster"
+sap_netweaver_ha_pacemaker_hacluster_cluster_name: "ascs_cluster"
 
+sap_netweaver_ha_pacemaker_ensa_ver: 2
+sap_netweaver_ha_pacemaker_ascs_key: 'ASCS' #sometimes ASCS isn't actually ASCS 
 
+sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage: true
+sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb: false
+sap_netweaver_ha_pacemaker_startup_delay: 0 #integer seconds, passed to `sleep`
+sap_netweaver_ha_pacemaker_save_backups: yes
 
