@@ -1,4 +1,5 @@
-# sap-netweaver-ha-pacemaker
+# sap-netweaver-ha-pacemaker![Ansible Lint](https://github.com/redhat-sap/sap-netweaver-ha-pacemaker/workflows/Ansible%20Lint/badge.svg?branch=master) ![Ansible Galaxy Import](https://github.com/redhat-sap/sap-netweaver-ha-pacemaker/workflows/Ansible%20Galaxy%20Import/badge.svg?branch=master)
+
 HA configuration of pacemaker for SAP Netweaver software 
 
 ### Role variables
