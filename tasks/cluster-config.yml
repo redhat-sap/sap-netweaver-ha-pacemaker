@@ -63,9 +63,13 @@
 - name: Set quorum votes
   command: pcs quorum expected-votes 2
   run_once: true
+  changed_when: false
 
 - name: Configure second link
-  command: pcs cluster link add {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }}={{ sap_netweaver_ha_pacemaker_node1_link2_ip }} {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }}={{ sap_netweaver_ha_pacemaker_node2_link2_ip }} options linknumber=2
+  command: >
+    pcs cluster link add {{ sap_netweaver_ha_pacemaker_hacluster_node1_fqdn }}=
+    {{ sap_netweaver_ha_pacemaker_node1_link2_ip }} {{ sap_netweaver_ha_pacemaker_hacluster_node2_fqdn }}=
+    {{ sap_netweaver_ha_pacemaker_node2_link2_ip }} options linknumber=2
   run_once: true
   when: sap_netweaver_ha_pacemaker_node1_link2_ip is defined and sap_netweaver_ha_pacemaker_node2_link2_ip is defined
 
