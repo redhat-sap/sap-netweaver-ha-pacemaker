@@ -93,7 +93,7 @@
   run_once: true
   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
   vars:
-    _options: 
+    _options:
       "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') + '\"' )
       if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') is defined else '' }}"
     _ocf_check:
