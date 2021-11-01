@@ -100,7 +100,6 @@
       "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_ascs') + '\"' )
       if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') is defined else '' }}"
 
-
 - name: Create SAP ASCS instance resource
   command: |
      pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}\
@@ -147,7 +146,6 @@
     _ocf_check:
       "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_ers') + '\"' )
       if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') is defined else '' }}"
-
 
 - name: Create SAP ERS instance resource
   command: |

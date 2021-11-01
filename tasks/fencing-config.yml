@@ -66,4 +66,3 @@
   register: stonith_device
   changed_when: "'error' not in stonith_device.stdout"
   run_once: true
-
