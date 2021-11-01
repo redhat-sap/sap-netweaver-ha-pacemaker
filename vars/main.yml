@@ -45,5 +45,3 @@ sap_netweaver_ha_pacemaker_mntdir_sys: '/usr/sap/{{ sap_netweaver_ha_pacemaker_s
 
 sap_netweaver_ha_pacemaker_auto_recover_ascs: false
 sap_netweaver_ha_pacemaker_auto_recover_ers: false
-
-

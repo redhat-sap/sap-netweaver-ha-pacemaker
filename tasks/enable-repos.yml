@@ -1,5 +1,4 @@
 ---
-
 # Evaluate whether to use e4s repositories or not
 - name: Ensure 'sap_netweaver_ha_pacemaker_repos' exists and points to the correct repository list
   set_fact:
