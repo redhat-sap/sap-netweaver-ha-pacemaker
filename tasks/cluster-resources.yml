@@ -22,67 +22,91 @@
   changed_when: "'Defaults do not apply to resource' in rconfig.stdout"
   when: sap_netweaver_ha_pacemaker_threshold
 
-# ENSA 1: https://access.redhat.com/articles/3150081#configure-shared-filesystems
-# ENSA 2: https://access.redhat.com/articles/3974941#configure-shared-filesystems
-- name: "Create filesystem resources"
-  shell: pcs resource create '{{ _name }}' Filesystem device='{{ _dev }}' directory='{{ _dir }}' fstype='{{ _type }}' {{ _options }} clone interleave=true {{ _ocf_check }}
-  register: create_fs_mnt
-  changed_when: "'Assumed agent name' in create_fs_mnt.stdout"
+- name: Create filesystem resource for sapmnt
+  command: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_sapmnt }} Filesystem device='{{ sap_netweaver_ha_pacemaker_sapmnt_device }}' \
+    directory={{ sap_netweaver_ha_pacemaker_sapmnt_path }} \
+    fstype=nfs --clone interleave=true
+  register: create_fs_sapmnt
+  changed_when: "'Assumed agent name' in create_fs_sapmnt.stdout"
   run_once: true
-  when: 
-    - sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage 
+
+- name: Create filesystem resource for transport directory
+  command: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_trans }} Filesystem device='{{ sap_netweaver_ha_pacemaker_trans_device }}' \
+    directory={{ sap_netweaver_ha_pacemaker_trans_path }} \
+    fstype=nfs --clone interleave=true
+  register: create_fs_trans
+  changed_when: "'Assumed agent name' in create_fs_trans.stdout"
+  run_once: true
+
+- name: Create filesystem resource for SYS directory
+  command: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_sys }} Filesystem device='{{ sap_netweaver_ha_pacemaker_sys_device }}' \
+    directory={{ sap_netweaver_ha_pacemaker_sys_path }} \
+    fstype=nfs --clone interleave=true
+  register: create_fs_sys
+  changed_when: "'Assumed agent name' in create_fs_sys.stdout"
+  run_once: true
+  when:
+    - sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
   vars:
     _name: "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fsr_name_' + item) }}"
     _dev:  "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fsdevice_' + item) }}"
     _dir:  "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_mntdir_' + item) }}"
     _type: "{{ lookup('vars', 'sap_netweaver_ha_pacemaker_fstype_' + item) }}"
-    _options: "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
-    _ocf_check: "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_' + item) + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
+    _options:
+      "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) + '\"' )
+       if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
+    _ocf_check:
+      "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_' + item) + '\"' )
+       if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_' + item) is defined else '' }}"
   loop:
     - sapmnt
     - sys
     - trans
 
 - name: Create Virtual IP resource for ASCS
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_{{sap_netweaver_ha_pacemaker_ascs_key | lower }}{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
+  command: |
+    pcs resource create vip_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_hana_instance_number_ascs }}\
     IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ascs }}" \
     --group {{ _ascs_group }}
   register: create_ip_ascs
   changed_when: "'Assumed agent name' in create_ip_ascs.stdout"
   run_once: true
 
-
-# JeffW: Removed, as AFAICT the azure lb never was working, and I can't test it.
-# - name: Create load balancer for  
-#   shell:
-#     pcs resource create nc_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}_ascs  \
-#     azure-lb port=625"{{ sap_netweaver_ha_pacemaker_instance_number }}"
-#   register: create_lb
-#   changed_when: "'Assumed agent name' in create_lb.stdout"
-#   run_once: true
-#   when: sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb
+- name: Create load balancer for ASCS
+  command: |
+    pcs resource create nc_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_hana_instance_number }}_ascs  \
+    azure-lb port=625"{{ sap_netweaver_ha_pacemaker_instance_number }}"
+  register: create_lb
+  changed_when: "'Assumed agent name' in create_lb.stdout"
+  run_once: true
 
 - name: Create filesystem resource for ASCS instance profile
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_fsr_name_ascs }} Filesystem device='{{ sap_netweaver_ha_pacemaker_fsdevice_ascs }}' \
-    directory={{ sap_netweaver_ha_pacemaker_mntdir_ascs }} \
-    fstype={{ sap_netweaver_ha_pacemaker_fstype_ascs }} force_unmount=safe  {{ _options }}  --group {{ _ascs_group }} {{ _ocf_check }}
+  command: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_ascs }} Filesystem device='{{ sap_netweaver_ha_pacemaker_ascs_profile_device }}'\
+    directory={{ sap_netweaver_ha_pacemaker_ascs_profile_path }} \
+    fstype=nfs force_unmount=safe --group g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}
   register: create_fs_ascs
   changed_when: "'Assumed agent name' in create_fs_ascs.stdout"
   run_once: true
   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
   vars:
-    _options: "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') is defined else '' }}"
-    _ocf_check: "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_ascs') + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') is defined else '' }}"
+    _options:
+      "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') + '\"' )
+      if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') is defined else '' }}"
+    _ocf_check:
+      "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_ascs') + '\"' )
+      if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ascs') is defined else '' }}"
 
 
 - name: Create SAP ASCS instance resource
-  shell: |
-     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_ascs_key | lower }}{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} \
-     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ascs }} START_PROFILE={{ sap_netweaver_ha_pacemaker_profile_file_ascs }} \
-     {{ _recover }} meta resource-stickiness=5000 \
-     --group {{ _ascs_group }}
+  command: |
+     pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}\
+     SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ascs }} START_PROFILE={{ sap_netweaver_ha_pacemaker_path_ascs_profile }}\
+     AUTOMATED_RECOVER=false meta resource-stickiness=5000 \
+     --group g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}
   register: create_ascs_instance
   changed_when: "'Assumed agent name' in create_ascs_instance.stdout"
   run_once: true
@@ -90,8 +114,8 @@
     _recover: "{{ 'AUTOMATIC_RECOVER=true' if sap_netweaver_ha_pacemaker_auto_recover_ascs else '' }}"
 
 - name: Create Virtual IP resource for ERS
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_vip_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
+  command: |
+    pcs resource create vip_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_hana_instance_number }}_ers  \
     IPaddr2 ip="{{ sap_netweaver_ha_pacemaker_vip_ers }}" \
      --group {{ _ers_group }}
   register: create_ip_ers
@@ -99,7 +123,7 @@
   run_once: true
 
 - name: Create load balancer for ERS
-  shell:
+  command: |
     pcs resource create nc_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_hana_instance_number }}_ers  \
     azure-lb port=625"{{ sap_netweaver_ha_pacemaker_instance_number }}"
   register: create_lb
@@ -108,24 +132,29 @@
   when: sap_netweaver_ha_pacemaker_hacluster_manage_azure_lb
 
 - name: Create filesystem resource for ERS instance profile
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_fsr_name_ers }} Filesystem device='{{ sap_netweaver_ha_pacemaker_fsdevice_ers }}' \
-    directory={{ sap_netweaver_ha_pacemaker_mntdir_ers }} \
-    fstype={{ sap_netweaver_ha_pacemaker_fstype_ers }} force_unmount=safe {{ _options }} --group {{ _ers_group }} {{ _ocf_check }}
-  register: create_fs_ers
-  changed_when: "'Assumed agent name' in create_fs_ers.stdout"
+  command: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_fs_ers }} Filesystem device='{{ sap_netweaver_ha_pacemaker_ers_profile_device }}' \
+    directory={{ sap_netweaver_ha_pacemaker_ers_profile_path }} \
+    fstype=nfs force_unmount=safe --group g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}
+  register: create_fs_ascs
+  changed_when: "'Assumed agent name' in create_fs_ascs.stdout"
   run_once: true
   when: sap_netweaver_ha_pacemaker_hacluster_manage_shared_storage
   vars:
-    _options: "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') is defined else '' }}"
-    _ocf_check: "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_ers') + '\"' ) if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') is defined else '' }}"
+    _options:
+      "{{ ('options=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') + '\"' )
+      if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') is defined else '' }}"
+    _ocf_check:
+      "{{ ('meta OCF_CHECK_LEVEL=\"' + lookup('vars', 'sap_netweaver_ha_pacemaker_ocf_check_ers') + '\"' )
+      if lookup('vars', 'sap_netweaver_ha_pacemaker_mntoption_ers') is defined else '' }}"
 
 
 - name: Create SAP ERS instance resource
-  shell: |
-    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_ers{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
-    SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ers }} START_PROFILE={{ sap_netweaver_ha_pacemaker_profile_file_ers }} \
-    {{ _recover }} {{ _isers }} meta --group {{ _ers_group }}
+  command: |
+    pcs resource create {{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
+    SAPInstance InstanceName={{ sap_netweaver_ha_pacemaker_instance_name_ers }} START_PROFILE={{ sap_netweaver_ha_pacemaker_path_ers_profile }} \
+    AUTOMATED_RECOVER=false meta IS_ERS=true \
+    --group g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number }}_ers
   register: create_instance_ers
   changed_when: "'Assumed agent name' in create_instance_ers.stdout"
   run_once: true
@@ -134,28 +163,28 @@
     _isers: "{{ 'IS_ERS=true' if sap_netweaver_ha_pacemaker_ensa_ver == 1 else ''}}"
 
 - name: Colocate Cluster colocation constraint
-  shell: |
-    pcs constraint colocation add {{ _ers_group }} \
-    with {{ _ascs_group }} -5000
+  command: |
+    pcs constraint colocation add g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ers }} \
+    with g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }} -5000
   register: colocate_constraint2
   changed_when: "'error' not in colocate_constraint2.stdout"
   run_once: true
 
 - name: Create Cluster order constraint 1
-  shell: |
-    pcs constraint order {{ _ascs_group }}  \
-    then {{ _ers_group }} kind=Optional symmetrical=false
+  command: |
+    pcs constraint order g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}  \
+    then g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ers }} kind=Optional symmetrical=false
   register: create_constraint1
   changed_when: "'Adding SAPHanaTopology' in create_constraint1.stdout"
   run_once: true
 
 - name: Create Cluster order constraint 2
-  shell: |
-    pcs constraint order start {{ _ascs_group }}  \
-    then stop {{ _ers_group }} symmetrical=false
+  command: |
+    pcs constraint order start g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ascs }}  \
+    then stop g_{{ sap_netweaver_ha_pacemaker_sid }}_{{ sap_netweaver_ha_pacemaker_instance_number_ers }} symmetrical=false
   register: create_constraint1
   changed_when: "'Adding SAPHanaTopology' in create_constraint1.stdout"
-  run_once: true  
+  run_once: true
 
 - name: Ensure Cluster is NOT in maintenance mode
   command: pcs property set maintenance-mode=false
