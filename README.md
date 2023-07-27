@@ -1,3 +1,8 @@
+# THIS ROLE IS DEPRECATED AND NO LONGER DEVELOPED
+
+The successor is now developed as part of the [community.sap_install](https://github.com/sap-linuxlab/community.sap_install) collection.
+
+
 # sap-netweaver-ha-pacemaker ![Ansible Lint](https://github.com/redhat-sap/sap-netweaver-ha-pacemaker/workflows/Ansible%20Lint/badge.svg?branch=master) ![Ansible Galaxy Import](https://github.com/redhat-sap/sap-netweaver-ha-pacemaker/workflows/Ansible%20Galaxy%20Import/badge.svg?branch=master)
 
 HA configuration of pacemaker for SAP Netweaver software 
